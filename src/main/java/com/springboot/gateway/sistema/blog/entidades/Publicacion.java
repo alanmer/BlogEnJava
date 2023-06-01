@@ -2,6 +2,9 @@ package com.springboot.gateway.sistema.blog.entidades;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "publicaciones", uniqueConstraints = {@UniqueConstraint(columnNames = {"titulo"})})
 public class Publicacion {
@@ -16,6 +19,9 @@ public class Publicacion {
     private String description;
     @Column(name = "contenido", nullable = false)
     private String contenido;
+
+    @OneToMany(mappedBy = "publicacion",cascade = CascadeType.ALL,orphanRemoval = true )
+    private Set<Comentarios> comentarios=new HashSet<>();
 
     public Long getId() {
         return id;
